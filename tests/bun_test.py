@@ -1,29 +1,30 @@
-# Юнит-тесты класса Bun
-# Проверено: get_name/get_price возвращают значения конструктора
-# атрибуты name и price совпадают с переданными при создании булки
-
 import pytest
 
 from praktikum.bun import Bun
+from tests.constants import BUN_CASES
 
 
-@pytest.mark.parametrize(
-    "name,price",
-    [
-        ("black bun", 100.0),
-        ("white bun", 200.5),
-        ("", 0.0),
-    ],
-)
-def test_bun_get_name_and_get_price(name, price):
-    # Геттеры отдают имя и цену при создании
+@pytest.mark.parametrize("name,price", BUN_CASES)
+def test_bun_get_name(name, price):
     bun = Bun(name, price)
+
     assert bun.get_name() == name
+
+
+@pytest.mark.parametrize("name,price", BUN_CASES)
+def test_bun_get_price(name, price):
+    bun = Bun(name, price)
+
     assert bun.get_price() == price
 
 
-def test_bun_attributes_match_constructor():
-    # Поля name и price совпадают с аргументами конструктора
+def test_bun_name_matches_constructor():
     bun = Bun("red bun", 300)
+
     assert bun.name == "red bun"
+
+
+def test_bun_price_matches_constructor():
+    bun = Bun("red bun", 300)
+
     assert bun.price == 300
